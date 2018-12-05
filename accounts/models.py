@@ -6,7 +6,7 @@ class User(AbstractUser):
     is_employee = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
     is_provider = models.BooleanField(default=False)
-    telephone = models.IntegerField()
+    telephone = models.IntegerField(null=True, blank=True)
 
 
 class Employee(models.Model):
