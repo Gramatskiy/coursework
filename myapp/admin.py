@@ -57,4 +57,6 @@ class ProviderAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    fields = ['is_employee', 'is_provider', 'is_customer', 'telephone']
+    fields = ['username', 'email', 'password', 'first_name', 'last_name', 'is_employee', 'is_provider',
+              'is_customer', 'telephone']
+    list_display = ('username', 'email', 'first_name', 'last_name')

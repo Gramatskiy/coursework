@@ -8,6 +8,9 @@ class User(AbstractUser):
     is_provider = models.BooleanField(default=False)
     telephone = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return str(self.last_name + " " + self.first_name)
+
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employee')
@@ -19,6 +22,9 @@ class Employee(models.Model):
             self.user.save()
         super(Employee, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return str(self.user)
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer')
@@ -29,6 +35,9 @@ class Customer(models.Model):
             self.user.save()
         super(Customer, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return str(self.user)
+
 
 class Provider(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='provider')
@@ -38,3 +47,6 @@ class Provider(models.Model):
             self.user.is_provider = True
             self.user.save()
         super(Provider, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.user)
