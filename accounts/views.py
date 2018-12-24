@@ -1,6 +1,7 @@
 from django.db.transaction import atomic
 from rest_framework.generics import RetrieveAPIView
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, \
+    ListModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
@@ -8,8 +9,10 @@ from rest_framework.viewsets import GenericViewSet
 from accounts import models
 from rest_framework import viewsets, status
 from rest_framework_jwt.views import ObtainJSONWebToken as BaseObtainJSONWebToken
+from rest_framework import generics
 
-from accounts.models import User
+from accounts.models import User, Employee
+from accounts.permissions import AllowAnyPostAuthenticatedPost
 from accounts.serializers import UserSerializer, EmployeeCreateSerializer, EmployeeSerializer
 
 
@@ -67,7 +70,7 @@ class SelfUserDetailView(RetrieveAPIView):
         raise Exception('Incorrect user from request')
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserList(generics.ListAPIView):
     queryset = models.User.objects.all()
     serializer_class = UserSerializer
 
@@ -81,10 +84,10 @@ class UserCreateMixin:
 
 
 class EmployeeViewSet(UserCreateMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
-                      GenericViewSet):
-    permission_classes = [AllowAny]
+                      GenericViewSet, ListModelMixin):
+    permission_classes = [AllowAnyPostAuthenticatedPost]
     serializer_class = EmployeeSerializer
-    queryset = models.Employee.objects.all()
+    queryset = Employee.objects.all()
 
     @atomic
     def create(self, request, *args, **kwargs):
@@ -94,8 +97,10 @@ class EmployeeViewSet(UserCreateMixin, CreateModelMixin, RetrieveModelMixin, Upd
         employee_serializer.save(user=user)
         return Response(data=employee_serializer.data, status=status.HTTP_201_CREATED)
 
-    def update(self, request, *args, **kwargs):
-        super(EmployeeViewSet, self).update()
-
     def check_object_permissions(self, request, obj):
         return request.user.is_employee and request.user.employee == obj
+
+
+class EmployeeList(generics.ListAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer

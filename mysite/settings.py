@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    # 'rest_framework_docs',
 
     'utils',
 
@@ -154,7 +155,7 @@ STATICFILES_DIRS = (
 )
 
 FIXTURE_DIRS = (
-    rel('..','fixtures'),
+    rel('..', 'fixtures'),
 )
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -165,11 +166,11 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        # Debugging
-        # 'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     # Debugging
+    #     # 'rest_framework.permissions.AllowAny',
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
