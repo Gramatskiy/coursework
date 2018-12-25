@@ -11,9 +11,9 @@ from rest_framework import viewsets, status
 from rest_framework_jwt.views import ObtainJSONWebToken as BaseObtainJSONWebToken
 from rest_framework import generics
 
-from accounts.models import User, Employee
+from accounts.models import User, Employee, Provider
 from accounts.permissions import AllowAnyPostAuthenticatedPost
-from accounts.serializers import UserSerializer, EmployeeCreateSerializer, EmployeeSerializer
+from accounts.serializers import *
 
 
 class ObtainJSONWebToken(BaseObtainJSONWebToken):
@@ -46,10 +46,10 @@ class SelfUserDetailView(RetrieveAPIView):
             if user.is_employee:
                 return EmployeeSerializer
             elif user.is_customer:
-                # TODO return CustomerSerializer
+                return CustomerSerializer
                 pass
             elif user.is_provider:
-                # TODO return ProviderSerializer
+                return ProviderSerializer
                 pass
         raise Exception('Incorrect user from request')
 
@@ -104,3 +104,49 @@ class EmployeeViewSet(UserCreateMixin, CreateModelMixin, RetrieveModelMixin, Upd
 class EmployeeList(generics.ListAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+
+
+class ProviderViewSet(UserCreateMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
+                      GenericViewSet, ListModelMixin):
+    permission_classes = [AllowAnyPostAuthenticatedPost]
+    serializer_class = ProviderSerializer
+    queryset = Provider.objects.all()
+
+    @atomic
+    def create(self, request, *args, **kwargs):
+        user = super().create(request)
+        provider_serializer = ProviderCreateSerializer(data=request.data)
+        provider_serializer.is_valid(raise_exception=True)
+        provider_serializer.save(user=user)
+        return Response(data=provider_serializer.data, status=status.HTTP_201_CREATED)
+
+    def check_object_permissions(self, request, obj):
+        return request.user.is_provider and request.user.provider == obj
+
+
+class ProviderList(generics.ListAPIView):
+    queryset = Provider.objects.all()
+    serializer_class = ProviderSerializer
+
+
+class CustomerViewSet(UserCreateMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
+                      GenericViewSet, ListModelMixin):
+    permission_classes = [AllowAnyPostAuthenticatedPost]
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+
+    @atomic
+    def create(self, request, *args, **kwargs):
+        user = super().create(request)
+        customer_serializer = ProviderCreateSerializer(data=request.data)
+        customer_serializer.is_valid(raise_exception=True)
+        customer_serializer.save(user=user)
+        return Response(data=customer_serializer.data, status=status.HTTP_201_CREATED)
+
+    def check_object_permissions(self, request, obj):
+        return request.user.is_customer and request.user.customer == obj
+
+
+class CustomerList(generics.ListAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer

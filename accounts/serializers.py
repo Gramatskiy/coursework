@@ -1,4 +1,4 @@
-from accounts.models import User, Employee
+from accounts.models import User, Employee, Provider, Customer
 from rest_framework import serializers
 
 
@@ -34,4 +34,34 @@ class EmployeeCreateSerializer(EmployeeSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
 
     class Meta(EmployeeSerializer.Meta):
+        pass
+
+
+class ProviderSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Provider
+        fields = ('id', 'user')
+
+
+class ProviderCreateSerializer(ProviderSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
+
+    class Meta(ProviderSerializer.Meta):
+        pass
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Customer
+        fields = ('id', 'user')
+
+
+class CustomerCreateSerializer(CustomerSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
+
+    class Meta(CustomerSerializer.Meta):
         pass
