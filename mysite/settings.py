@@ -195,3 +195,5 @@ if DEBUG:
     FRONTEND_DOMAIN = 'localhost:8080'
 else:
     FRONTEND_DOMAIN = None
+
+CSRF_COOKIE_NAME = "XSRF-TOKEN"
