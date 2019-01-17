@@ -36,6 +36,7 @@ export default {
   name: 'hello',
   data() {
     return {
+      products: [],
       msg: 'Welcome to Your Vue.js App',
       product: { name: '', price: ''},
     }
