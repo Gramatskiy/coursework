@@ -19,3 +19,33 @@ from myapp.serializers import *
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+class OrganizationViewSet(ModelViewSet):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationSerializer
+
+
+class PlaceViewSet(ModelViewSet):
+    queryset = Place.objects.all()
+    serializer_class = PlaceSerializer
+
+
+class PlaceProductViewSet(ModelViewSet):
+    queryset = PlaceProduct.objects.all()
+    serializer_class = PlaceProductSerializer
+
+
+class MagnetKeyViewSet(ModelViewSet):
+    queryset = MagnetKey.objects.all()
+    serializer_class = MagnetKeySerializer
+
+
+class DocumentOutViewSet(ModelViewSet):
+    queryset = DocumentOut.objects.all()
+    serializer_class = DocumentOutSerializer
+
+
+class DocumentInViewSet(ModelViewSet):
+    queryset = DocumentIn.objects.all()
+    serializer_class = DocumentInSerializer
