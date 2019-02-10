@@ -10,8 +10,7 @@ from rest_framework import routers
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('myapp/', include('myapp.urls')),
     path('account/', include('accounts.urls')),
-    #path('account/', TemplateView.as_view(template_name='index.html')),
+    path('products/', include('products.urls')),
     path('docs/', include_docs_urls(title='Couse API', permission_classes=[])),
 ]
