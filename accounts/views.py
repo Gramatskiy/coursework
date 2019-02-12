@@ -23,6 +23,8 @@ class ObtainJSONWebToken(BaseObtainJSONWebToken):
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid():
                 user = serializer.object.get('user') or request.user
+                if user.is_superuser:
+                    response.data['is_admin'] = True
                 if user.is_employee:
                     response.data['is_employee'] = True
                 elif user.is_provider:
@@ -45,7 +47,7 @@ class SelfUserDetailView(RetrieveAPIView):
                 return EmployeeSerializer
             elif user.is_provider:
                 return ProviderSerializer
-        raise Exception('Incorrect user from request')
+        raise RuntimeError('Incorrect user from request')
 
     def get_object(self):
         self.kwargs['pk'] = self.request.user.pk
@@ -54,8 +56,7 @@ class SelfUserDetailView(RetrieveAPIView):
             return obj.employee
         if obj.is_provider:
             return obj.provider
-
-    raise Exception('Incorrect user from request')
+        raise RuntimeError('Incorrect user from request')
 
 
 class UserList(generics.ListAPIView):

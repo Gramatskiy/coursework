@@ -1,0 +1,30 @@
+[
+{
+  "model": "products.receiptreceive",
+  "pk": 1,
+  "fields": {
+    "product": 3
+  }
+},
+{
+  "model": "products.receiptreceive",
+  "pk": 2,
+  "fields": {
+    "product": 2
+  }
+},
+{
+  "model": "products.receiptreceive",
+  "pk": 3,
+  "fields": {
+    "product": 5
+  }
+},
+{
+  "model": "products.receiptreceive",
+  "pk": 4,
+  "fields": {
+    "product": 5
+  }
+}
+]

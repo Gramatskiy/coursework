@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Product(models.Model):
-    name = models.CharField(_('name'))
+    name = models.CharField(_('name'), max_length=255)
     photo = models.ImageField(_('photo'), upload_to='product', blank=True)
     description = models.TextField(_('description'))
 
@@ -26,7 +26,8 @@ class ReceiptReceive(models.Model):
 
     def save(self, *args, **kwargs):
         if getattr(self, 'product', None):
-            ProductAmount.objects.create(amount=self.product.amount + 1, product=self.product)
+            ProductAmount.objects.create(amount=self.product.amount.amount + 1, product=self.product)
+        super(ReceiptReceive, self).save(*args, **kwargs)
 
 
 class ReceiptSell(models.Model):
@@ -34,4 +35,5 @@ class ReceiptSell(models.Model):
 
     def save(self, *args, **kwargs):
         if getattr(self, 'product', None):
-            ProductAmount.objects.create(amount=self.product.amount - 1, product=self.product)
+            ProductAmount.objects.create(amount=self.product.amount.amount - 1, product=self.product)
+        super(ReceiptSell, self).save(*args, **kwargs)

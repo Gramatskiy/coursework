@@ -1,0 +1,38 @@
+[
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Cola",
+    "photo": "staging/products/product/napitok-pepsi-kola-1l.jpg",
+    "description": "Sweet drink"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "name": "Cheese",
+    "photo": "staging/products/product/43bbbcc541272e449efcd8c02322067c.jpg",
+    "description": "Dairy"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 4,
+  "fields": {
+    "name": "Milk",
+    "photo": "staging/products/product/src.1400110130.SNCPSG10.obj.0.1.jpg.oe.jpg.pf.jpg.1350nowm.jpg.1350x.jpg",
+    "description": "Dairy"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 5,
+  "fields": {
+    "name": "Bread",
+    "photo": "staging/products/product/525x525_1_f086106900921f89c852e40d00043f2a525x525_0xc0a839a2_131774890414625392_cSVxR66.jpeg",
+    "description": "wheat product"
+  }
+}
+]

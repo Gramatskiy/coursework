@@ -1,0 +1,23 @@
+[
+{
+  "model": "products.receiptsell",
+  "pk": 1,
+  "fields": {
+    "product": 2
+  }
+},
+{
+  "model": "products.receiptsell",
+  "pk": 2,
+  "fields": {
+    "product": 5
+  }
+},
+{
+  "model": "products.receiptsell",
+  "pk": 3,
+  "fields": {
+    "product": 5
+  }
+}
+]

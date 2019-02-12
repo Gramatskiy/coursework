@@ -1,16 +1,16 @@
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
-from django.views.generic import TemplateView
-
-from accounts import views
-from rest_framework import routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('account/', include('accounts.urls')),
-    path('products/', include('products.urls')),
-    path('docs/', include_docs_urls(title='Couse API', permission_classes=[])),
+    path('accounts/', include('accounts.urls')),
+    path('', include('products.urls')),
+    path('docs/', include_docs_urls(title='Course API', permission_classes=[])),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

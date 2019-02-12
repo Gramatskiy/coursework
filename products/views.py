@@ -4,26 +4,29 @@ from rest_framework.generics import CreateAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from products.models import Product
-from products.serializers import ProductSerializer, ProductAmountSerializer
+from products.models import Product, ReceiptReceive, ReceiptSell
+from products.serializers import ProductSerializer, ProductAmountSerializer, ReceiptReceiveSerializer, \
+    ReceiptSellSerializer
 from utils.heplers import get_object_or_None
 
 
 class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
     @atomic
     def create(self, request, *args, **kwargs):
         product_data = request.data
-        product_amount_data = product_data.pop('amount', 1)
+        product_amount_data = {'amount': product_data.get('amount', 1)}
 
-        product_serializer = ProductSerializer(product_data)
+        product_serializer = ProductSerializer(data=product_data)
         product_serializer.is_valid(raise_exception=True)
 
-        product_amount_serializer = ProductAmountSerializer(product_amount_data)
+        product_amount_serializer = ProductAmountSerializer(data=product_amount_data)
         product_amount_serializer.is_valid(raise_exception=True)
 
         product_serializer.save()
-        product_amount_serializer.save(product=product_serializer.data['id'])
+        product_amount_serializer.save(product=product_serializer.instance)
         headers = self.get_success_headers(product_serializer.data)
 
         return Response(product_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -34,16 +37,15 @@ class ProductViewSet(ModelViewSet):
         instance = self.get_object()
 
         product_data = request.data
-        product_amount_data = product_data.pop('amount', instance.amount.amount)
+        amount = request.data.get('amount', None)
+        if amount:
+            product_amount_serializer = ProductAmountSerializer(data={'amount': amount})
+            product_amount_serializer.is_valid(raise_exception=True)
+            product_amount_serializer.save(product=instance)
 
-        product_serializer = ProductSerializer(instance, product_data, partial=partial)
+        product_serializer = ProductSerializer(instance, data=product_data, partial=partial)
         product_serializer.is_valid(raise_exception=True)
-
-        product_amount_serializer = ProductAmountSerializer(instance, product_amount_data, partial=partial)
-        product_amount_serializer.is_valid(raise_exception=True)
-
         product_serializer.save()
-        product_amount_serializer.save(product=product_serializer.data['id'])
 
         if getattr(instance, '_prefetched_objects_cache', None):
             # If 'prefetch_related' has been applied to a queryset, we need to
@@ -55,14 +57,18 @@ class ProductViewSet(ModelViewSet):
 
 class ProductAmountViewSet(mixins.ListModelMixin,
                            GenericViewSet):
+    serializer_class = ProductAmountSerializer
+
     def get_queryset(self):
         product = get_object_or_None(Product, pk=self.kwargs.get('product_pk'))
-        return product and product.amount_set.all()
+        return product and product.productamount_set.all()
 
 
-class ReceiptReceiveCreateView(ListCreateAPIView):
-    pass
+class ReceiptReceiveListCreateView(ListCreateAPIView):
+    queryset = ReceiptReceive.objects.all()
+    serializer_class = ReceiptReceiveSerializer
 
 
-class ReceiptSellCreateView(ListCreateAPIView):
-    pass
+class ReceiptSellListCreateView(ListCreateAPIView):
+    queryset = ReceiptSell.objects.all()
+    serializer_class = ReceiptSellSerializer

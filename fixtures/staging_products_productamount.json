@@ -1,0 +1,137 @@
+[
+{
+  "model": "products.productamount",
+  "pk": 2,
+  "fields": {
+    "product": 2,
+    "amount": 5,
+    "timestamp": "2019-02-11T20:31:43.939Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 3,
+  "fields": {
+    "product": 3,
+    "amount": 3,
+    "timestamp": "2019-02-11T21:02:09.529Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 4,
+  "fields": {
+    "product": 4,
+    "amount": 10,
+    "timestamp": "2019-02-11T21:02:23.862Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 5,
+  "fields": {
+    "product": 5,
+    "amount": 1,
+    "timestamp": "2019-02-11T21:02:42.041Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 6,
+  "fields": {
+    "product": 5,
+    "amount": 5,
+    "timestamp": "2019-02-11T21:07:17.447Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 7,
+  "fields": {
+    "product": 5,
+    "amount": 6,
+    "timestamp": "2019-02-11T21:07:23.899Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 8,
+  "fields": {
+    "product": 2,
+    "amount": 6,
+    "timestamp": "2019-02-11T21:29:14.104Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 9,
+  "fields": {
+    "product": 3,
+    "amount": 4,
+    "timestamp": "2019-02-11T21:29:22.138Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 10,
+  "fields": {
+    "product": 3,
+    "amount": 5,
+    "timestamp": "2019-02-11T21:29:54.316Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 11,
+  "fields": {
+    "product": 2,
+    "amount": 7,
+    "timestamp": "2019-02-11T21:30:28.760Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 12,
+  "fields": {
+    "product": 2,
+    "amount": 6,
+    "timestamp": "2019-02-11T21:30:40.631Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 13,
+  "fields": {
+    "product": 5,
+    "amount": 5,
+    "timestamp": "2019-02-11T21:30:46.731Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 14,
+  "fields": {
+    "product": 5,
+    "amount": 4,
+    "timestamp": "2019-02-11T21:30:47.679Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 15,
+  "fields": {
+    "product": 5,
+    "amount": 5,
+    "timestamp": "2019-02-11T21:30:53.483Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 16,
+  "fields": {
+    "product": 5,
+    "amount": 6,
+    "timestamp": "2019-02-11T21:30:55.465Z"
+  }
+}
+]
