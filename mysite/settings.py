@@ -197,3 +197,7 @@ else:
     FRONTEND_DOMAIN = None
 
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
