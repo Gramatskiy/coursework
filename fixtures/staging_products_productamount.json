@@ -133,5 +133,50 @@
     "amount": 6,
     "timestamp": "2019-02-11T21:30:55.465Z"
   }
+},
+{
+  "model": "products.productamount",
+  "pk": 17,
+  "fields": {
+    "product": 5,
+    "amount": 7,
+    "timestamp": "2019-02-12T23:01:27.771Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 18,
+  "fields": {
+    "product": 5,
+    "amount": 8,
+    "timestamp": "2019-02-12T23:01:29.498Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 19,
+  "fields": {
+    "product": 5,
+    "amount": 9,
+    "timestamp": "2019-02-12T23:01:32.422Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 20,
+  "fields": {
+    "product": 5,
+    "amount": 8,
+    "timestamp": "2019-02-12T23:01:36.808Z"
+  }
+},
+{
+  "model": "products.productamount",
+  "pk": 21,
+  "fields": {
+    "product": 5,
+    "amount": 7,
+    "timestamp": "2019-02-12T23:01:38.000Z"
+  }
 }
 ]

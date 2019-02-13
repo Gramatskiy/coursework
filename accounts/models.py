@@ -25,7 +25,7 @@ class Employee(models.Model):
 
 
 class Provider(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='provider')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='providers')
 
     def save(self, *args, **kwargs):
         if getattr(self, 'user', False):

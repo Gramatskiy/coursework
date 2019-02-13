@@ -26,15 +26,29 @@ class ProductAmountSerializer(serializers.ModelSerializer):
         fields = ['id', 'product', 'amount', 'timestamp']
 
 
-class ReceiptReceiveSerializer(serializers.ModelSerializer):
+class ReceiptReceiveCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReceiptReceive
         fields = ['id', 'product']
         depth = 0
 
 
-class ReceiptSellSerializer(serializers.ModelSerializer):
+class ReceiptReceiveFullSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReceiptReceive
+        fields = ['id', 'product', 'timestamp']
+        depth = 1
+
+
+class ReceiptSellCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReceiptSell
         fields = ['id', 'product']
         depth = 0
+
+
+class ReceiptSellFullSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReceiptSell
+        fields = ['id', 'product', 'timestamp']
+        depth = 1

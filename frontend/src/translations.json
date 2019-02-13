@@ -81,6 +81,13 @@
     "Description": "Опис",
     "Add product": "Додати продукт",
     "Add": "Додати",
-    "Amount": "Кількість"
+    "Amount": "Кількість",
+    "Received receipts": "Прихідні накладні",
+    "Sold receipts": "Вихідні накладні",
+    "Create received receipt": "Додати Прихідну накладну",
+    "Create sold receipt": "Додати Вихідну накладну",
+    "Receive receipt has been created": "Прихідна накладна була додана",
+    "Sold receipt has been created": "Вихідна накладна була додана",
+    "Amount dynamics": "Динаміка кількості"
   }
 }

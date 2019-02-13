@@ -5,16 +5,18 @@ import store from './store'
 import SignIn from './views/accounts/SignIn.vue'
 import SignUp from './views/accounts/SignUp.vue'
 
-import SubscribePremium from './views/clients/SubscribePremium.vue'
-import ClientDeviceStatistics from './views/clients/DeviceStatistics'
-import Client from './views/clients/Index'
-import ClientMap from './views/clients/Map'
+
+import Provider from './views/providers/Index'
 
 import Admin from './views/admin/Index'
 import AdminProducts from './views/admin/Products'
-import AdminDeviceStatistics from './views/admin/DeviceStatistics'
 import AdminUpdateProduct from './views/admin/UpdateProduct'
 import AdminCreateProduct from './views/admin/CreateProduct'
+import AdminReceiptReceiveList from './views/admin/ReceiptReceiveList'
+import AdminReceiptSellList from './views/admin/ReceiptSellList'
+import AdminReceiptReceiveCreate from './views/admin/ReceiptReceiveCreate'
+import AdminReceiptSellCreate from './views/admin/ReceiptSellCreate'
+import AdminProductAmounStatistics from './views/admin/ProductAmounStatistics'
 
 import InvalidUserError from './errors'
 
@@ -32,35 +34,18 @@ const routes = [
         component: SignUp
     },
     {
-        path: '/provider/invoice',
-        name: 'provider-invoice',
-        component: Client,
-        redirect: '/provider/invoice/',
-        meta: {'requireClient': true},
+        path: '/providers',
+        name: 'providers',
+        component: Provider,
+        redirect: '/providers/receipt/receive/',
+        meta: {'requireProvider': true},
         children: [
             {
-                path: 'dashboard/',
-                name: 'client-dashboard',
-                component: ClientMap,
-                meta: {'menuItemName': 'dashboard'}
-            },
-            {
-                path: 'subscribe-premium/',
-                name: 'subscribe-premium',
-                component: SubscribePremium
-            },
-            {
-                path: '/device/:id/statistics/',
-                name: 'client-device-statistics',
-                component: ClientDeviceStatistics,
-                beforeEnter(to, from, next) {
-                    if (!(isPremium())) {
-                        next({'name': 'client'})
-                    }
-                    next()
-                },
+                path: 'receipt/receive/',
+                name: 'providers-receipt-receive-create',
+                component: AdminReceiptReceiveCreate,
                 props: true
-            }
+            },
 
         ]
     },
@@ -90,14 +75,35 @@ const routes = [
                 props: true
             },
             {
-                path: '/buy-device/',
-                name: 'admin-buy-device',
-                component: AdminDeviceStatistics,
+                path: 'receipt/receive/',
+                name: 'admin-receipt-receive',
+                component: AdminReceiptReceiveList,
                 props: true
-            }
+            },
+            {
+                path: 'receipt/sell/',
+                name: 'admin-receipt-sell',
+                component: AdminReceiptSellList,
+                props: true
+            }, {
+                path: 'receipt/receive/create/',
+                name: 'admin-receipt-receive-create',
+                component: AdminReceiptReceiveCreate,
+                props: true
+            }, {
+                path: 'receipt/sell/create/',
+                name: 'admin-receipt-sell-create',
+                component: AdminReceiptSellCreate,
+                props: true
+            }, {
+                path: 'product/:id/amount/',
+                name: 'admin-product-amount',
+                component: AdminProductAmounStatistics,
+                props: true
+            },
         ]
     }
-]
+];
 
 const router = new Router({
     routes,
@@ -108,8 +114,8 @@ function isLoggedIn() {
     return store.getters.isLoggedIn
 }
 
-function isClient() {
-    return store.getters.isClient
+function isProvider() {
+    return store.getters.isProvider
 }
 
 function isAdmin() {
@@ -124,8 +130,8 @@ router.beforeEach((to, from, next) => {
     if (['sign-in', 'sign-up', 'reset-password', 'set-password'].indexOf(to.name) !== -1) {
         next()
     } else {
-        // check that user is logged and is client or admin
-        if (!isLoggedIn() || !(isClient() || isAdmin())) {
+        // check that user is logged and is providers or admin
+        if (!isLoggedIn() || !(isProvider() || isAdmin())) {
             next({name: 'sign-in'})
         } else {
             // every router that inherits from /admin/ has admin meta in root matched path
@@ -133,17 +139,17 @@ router.beforeEach((to, from, next) => {
                 // continue if admin goes admin's route
                 if (isAdmin()) {
                     next()
-                } else if (isClient()) {
-                    next({name: 'client'})
+                } else if (isProvider()) {
+                    next({name: 'providers'})
                 }
-            } else if (to.matched.some(record => record.meta.requireClient)) {
-                // continue if client goes client's route
-                if (isClient()) {
+            } else if (to.matched.some(record => record.meta.requireProvider)) {
+                // continue if providers goes providers's route
+                if (isProvider()) {
                     if (to.name === 'subscribe-premium') {
                         if (!isPremium()) {
                             next()
                         } else {
-                            next({name: 'client'})
+                            next({name: 'providers'})
                         }
                     }
                     next()
@@ -152,8 +158,8 @@ router.beforeEach((to, from, next) => {
                 }
             } else if (isAdmin()) {
                 next({name: 'admin'})
-            } else if (isClient()) {
-                next({name: 'client'})
+            } else if (isProvider()) {
+                next({name: 'providers'})
             } else {
                 throw new InvalidUserError()
             }

@@ -6,7 +6,7 @@ export default class BasicClientApi extends ApiAuth {
   }
 
   static validatePayment () {
-    return this.post('/clients/validate-payment/', {})
+    return this.post('/providers/validate-payment/', {})
   }
 
   static makeClientPremium ({ token }) {

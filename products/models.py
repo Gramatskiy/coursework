@@ -23,6 +23,10 @@ class ProductAmount(models.Model):
 
 class ReceiptReceive(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=_('product'))
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
 
     def save(self, *args, **kwargs):
         if getattr(self, 'product', None):
@@ -32,6 +36,10 @@ class ReceiptReceive(models.Model):
 
 class ReceiptSell(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=_('product'))
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
 
     def save(self, *args, **kwargs):
         if getattr(self, 'product', None):

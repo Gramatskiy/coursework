@@ -1,6 +1,6 @@
 <template>
     <v-flex v-if="products.length > 0" xs12 row class="d-flex flex-wrap">
-        <h1 class="w-100 text-xs-center">{{t("Your products")}}</h1>
+        <h1 class="w-100 text-xs-center">{{t("Create sold receipt")}}</h1>
         <v-flex v-for="product in products" class="d-flex w-25  pa-1" :key="product.id">
             <v-card>
                 <v-img
@@ -13,22 +13,11 @@
                             <v-layout row align-center>
                                 <h2 class="headline mb-0">{{product.name}}</h2>
                             </v-layout>
-                            <h4>{{product.description}}</h4>
-                            <div>{{t("Amount is")}} {{product.amount.amount}}</div>
                         </div>
                     </v-card-title>
                     <v-card-actions>
-                        <v-btn flat color="success"
-                               @click="$router.push({'name':'admin-product-update', 'params':{'id':product.id}})">
-                            {{t("Update")}}
-                        </v-btn>
-                        <v-btn flat color="error"
-                               @click="deleteProduct(product)">
-                            {{t("Remove")}}
-                        </v-btn>
-                        <v-btn flat color="warning"
-                               @click="$router.push({name:'admin-product-amount', params:{'id':product.id}})">
-                            {{t("Amount dynamics")}}
+                        <v-btn flat color="success" @click="createSoldInvoice(product.id)">
+                            {{t("Create sold receipt")}}
                         </v-btn>
                     </v-card-actions>
                 </template>
@@ -41,7 +30,7 @@
     import AdminApi from './api'
 
     export default {
-        name: 'Products',
+        name: 'ReceiptSoldCreate',
         data() {
             return {
                 products: []
@@ -58,13 +47,11 @@
                     })
                     .catch(reason => console.error(reason.response || reason))
             },
-            deleteProduct(product) {
-                const confirmation = confirm(this.$translate.text("Are you sure to delete the product:") + " " + product.name)
-                if (confirmation) {
-                    AdminApi.deleteProduct({id: product.id})
-                        .then(() => this.getProductList())
-                        .catch(reason => console.error(reason.response || reason))
-                }
+            createSoldInvoice(productId) {
+                AdminApi.createReceiptSold({fields: {'product': productId}})
+                    .then(() => {
+                        alert(this.$translate.text("Sold receipt has been created"))
+                    })
             }
         }
     }

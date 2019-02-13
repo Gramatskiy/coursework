@@ -3,21 +3,16 @@
   "model": "products.receiptsell",
   "pk": 1,
   "fields": {
-    "product": 2
+    "product": 5,
+    "timestamp": "2019-02-12T23:01:36.821Z"
   }
 },
 {
   "model": "products.receiptsell",
   "pk": 2,
   "fields": {
-    "product": 5
-  }
-},
-{
-  "model": "products.receiptsell",
-  "pk": 3,
-  "fields": {
-    "product": 5
+    "product": 5,
+    "timestamp": "2019-02-12T23:01:38.012Z"
   }
 }
 ]

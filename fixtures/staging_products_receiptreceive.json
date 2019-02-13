@@ -3,28 +3,24 @@
   "model": "products.receiptreceive",
   "pk": 1,
   "fields": {
-    "product": 3
+    "product": 5,
+    "timestamp": "2019-02-12T23:01:27.787Z"
   }
 },
 {
   "model": "products.receiptreceive",
   "pk": 2,
   "fields": {
-    "product": 2
+    "product": 5,
+    "timestamp": "2019-02-12T23:01:29.518Z"
   }
 },
 {
   "model": "products.receiptreceive",
   "pk": 3,
   "fields": {
-    "product": 5
-  }
-},
-{
-  "model": "products.receiptreceive",
-  "pk": 4,
-  "fields": {
-    "product": 5
+    "product": 5,
+    "timestamp": "2019-02-12T23:01:32.434Z"
   }
 }
 ]

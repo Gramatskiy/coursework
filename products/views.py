@@ -1,12 +1,13 @@
 from django.db.transaction import atomic
 from rest_framework import status, mixins
-from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from products.models import Product, ReceiptReceive, ReceiptSell
-from products.serializers import ProductSerializer, ProductAmountSerializer, ReceiptReceiveSerializer, \
-    ReceiptSellSerializer
+from products.serializers import ProductSerializer, ProductAmountSerializer, ReceiptReceiveFullSerializer, \
+    ReceiptReceiveCreateSerializer, ReceiptSellCreateSerializer, \
+    ReceiptSellFullSerializer
 from utils.heplers import get_object_or_None
 
 
@@ -66,9 +67,19 @@ class ProductAmountViewSet(mixins.ListModelMixin,
 
 class ReceiptReceiveListCreateView(ListCreateAPIView):
     queryset = ReceiptReceive.objects.all()
-    serializer_class = ReceiptReceiveSerializer
+    serializer_class = ReceiptReceiveFullSerializer
+
+    def get_serializer_class(self):
+        if self.request.method in ["GET", "OPTION"]:
+            return ReceiptReceiveFullSerializer
+        return ReceiptReceiveCreateSerializer
 
 
 class ReceiptSellListCreateView(ListCreateAPIView):
     queryset = ReceiptSell.objects.all()
-    serializer_class = ReceiptSellSerializer
+    serializer_class = ReceiptSellFullSerializer
+
+    def get_serializer_class(self):
+        if self.request.method in ["GET", "OPTION"]:
+            return ReceiptSellFullSerializer
+        return ReceiptSellCreateSerializer

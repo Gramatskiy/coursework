@@ -20,7 +20,7 @@ export default new Vuex.Store({
   state: {
     JSONWebToken: localStorage.getItem('JSONWebToken'),
     isAdmin: localStorage.getItem('isAdmin'),
-    isClient: localStorage.getItem('isClient'),
+    isProvider: localStorage.getItem('isProvider'),
     isPremium: localStorage.getItem('isPremium'),
     user: localStorage.getItem('user'),
     activeMenuItemName: null,
@@ -33,8 +33,8 @@ export default new Vuex.Store({
     getUser (state) {
       return state.user
     },
-    isClient (state) {
-      return state.isClient
+    isProvider (state) {
+      return state.isProvider
     },
     isAdmin (state) {
       return state.isAdmin
@@ -57,10 +57,10 @@ export default new Vuex.Store({
       state.isAdmin = false
     },
     [SET_IS_CLIENT] (state, payload) {
-      state.isClient = payload.isClient
+      state.isProvider = payload.isProvider
     },
     [REMOVE_IS_CLIENT] (state) {
-      state.isClient = false
+      state.isProvider = false
     },
     [SET_IS_PREMIUM] (state, payload) {
       state.isPremium = payload.isPremium
@@ -109,12 +109,12 @@ export default new Vuex.Store({
       localStorage.removeItem('isAdmin')
       commit(REMOVE_IS_CUSTOMER)
     },
-    setIsProvider ({ commit }, isClient) {
-      localStorage.setItem('isClient', isClient)
-      commit(SET_IS_CLIENT, { 'isClient': isClient })
+    setIsProvider ({ commit }, isProvider) {
+      localStorage.setItem('isProvider', isProvider)
+      commit(SET_IS_CLIENT, { 'isProvider': isProvider })
     },
-    removeIsClient ({ commit }) {
-      localStorage.removeItem('isClient')
+    removeIsProvider ({ commit }) {
+      localStorage.removeItem('isProvider')
       commit(REMOVE_IS_CLIENT)
     },
     setIsPremium ({ commit }, isPremium) {

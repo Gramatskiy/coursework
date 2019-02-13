@@ -6,8 +6,8 @@ export default class AccountApi extends ApiAuth {
   }
 
 
-  static сlientSignUp ({ fields }) {
-    return this.unauthPost('/user/client/', fields)
+  static providerSignUp ({ fields }) {
+    return this.unauthPost('/accounts/user/providers/', fields)
   }
 
   static сustomerSignUp ({ fields }) {

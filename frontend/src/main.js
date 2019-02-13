@@ -47,7 +47,7 @@ Vue.mixin({
       'removeJSONWebToken',
       'removeUser',
       'removeIsAdmin',
-      'removeIsClient',
+      'removeIsProvider',
       'removeIsPremium'
     ])
   }

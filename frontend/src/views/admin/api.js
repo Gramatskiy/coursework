@@ -21,6 +21,26 @@ export default class AdminApi extends ApiAuth {
         return this.post(`/product/`, fields)
     }
 
+    static getReceiptReceiveList() {
+        return this.get(`/receipt/receive/`)
+    }
+
+    static getReceiptSellList() {
+        return this.get(`/receipt/sell/`)
+    }
+
+    static createReceiptReceive({fields}) {
+        return this.post(`/receipt/receive/`, fields)
+    }
+
+    static createReceiptSold({fields}) {
+        return this.post(`/receipt/sell/`, fields)
+    }
+
+    static getProductAmountList({id}) {
+        return this.get(`/product/${id}/amount/`)
+    }
+
     static getDeviceDetail({id, query = ''}) {
         return this.get(`/device/admin/${id}/`, query)
     }

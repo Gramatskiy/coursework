@@ -44,7 +44,6 @@
 
 <script>
     const [EN, UA] = ['en', 'ua']
-
     export default {
         name: 'Client',
         data() {
@@ -54,40 +53,10 @@
                 fixed: true,
                 items: [
                     {
-                        icon: 'fastfood',
-                        title: 'Products',
-                        originTitle: 'Products',
-                        action: this.dashboard
-                    },
-                    {
-                        icon: 'money',
-                        title: 'Add product',
-                        originTitle: 'Add product',
-                        action: this.createProduct
-                    },
-                    {
-                        icon: 'receipt',
-                        title: "Received receipts",
-                        originTitle: "Received receipts",
-                        action: this.receiptReceive
-                    },
-                    {
-                        icon: 'receipt',
-                        title: "Sold receipts",
-                        originTitle: "Sold receipts",
-                        action: this.receiptSell
-                    },
-                    {
                         icon: 'receipt',
                         title: "Create received receipt",
                         originTitle: "Create received receipt",
                         action: this.createReceiptReceive
-                    },
-                    {
-                        icon: 'receipt',
-                        title: "Create sold receipt",
-                        originTitle: "Create sold receipt",
-                        action: this.createReceiptSold
                     },
                     {
                         icon: 'logout',
@@ -98,8 +67,8 @@
                 ],
                 right: true,
                 rightDrawer: false,
-                title: 'MagnitHouse admin',
-                originTitle: 'MagnitHouse admin',
+                title: 'MagnitHouse client',
+                originTitle: 'MagnitHouse client',
                 lang: UA
             }
         },
@@ -121,32 +90,20 @@
         },
         methods: {
             logout() {
-                this.removeIsAdmin()
-                this.removeJSONWebToken()
+                this.removeIsPremium();
+                this.removeIsProvider();
+                this.removeJSONWebToken();
                 this.$router.push({name: 'sign-in'})
             },
-            dashboard() {
-                this.$router.push({name: 'admin-dashboard'})
-            },
-            createProduct() {
-                this.$router.push({name: 'admin-product-create'})
-            },
-            receiptReceive() {
-                this.$router.push({name: 'admin-receipt-receive'})
-            },
-            receiptSell() {
-                this.$router.push({name: 'admin-receipt-sell'})
-            }, createReceiptSold() {
-                this.$router.push({name: 'admin-receipt-sell-create'})
-            }, createReceiptReceive() {
-                this.$router.push({name: 'admin-receipt-receive-create'})
+            createReceiptReceive() {
+                this.$router.push({name: 'provider-receipt-receive-create'})
             },
             changeLang() {
                 if (this.lang === UA) {
-                    this.$translate.setLang(EN)
+                    this.$translate.setLang(EN);
                     this.lang = EN
                 } else {
-                    this.$translate.setLang(UA)
+                    this.$translate.setLang(UA);
                     this.lang = UA
                 }
             }
@@ -154,21 +111,6 @@
     }
 </script>
 
-<style>
-    .w-25 {
-        max-width: 25% !important;
-    }
-
-    .flex-wrap {
-        flex-wrap: wrap;
-    }
-
-    .w-100 {
-        width: 100%;
-    }
-
-    .w-50 {
-        width: 50%;
-    }
+<style scoped>
 
 </style>

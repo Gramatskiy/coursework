@@ -21,7 +21,7 @@ export default class ApiAuth {
     const dispatch = store.dispatch;
     dispatch('removeJSONWebToken');
     dispatch('removeUser');
-    dispatch('removeIsClient');
+    dispatch('removeIsProvider');
     dispatch('removeIsAdmin');
     router.push({ 'name': 'sign-in' })
   }
