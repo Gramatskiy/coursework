@@ -151,7 +151,7 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = rel('..', 'files', 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    rel('static'),
+    rel('..', 'static'),
 )
 
 FIXTURE_DIRS = (
